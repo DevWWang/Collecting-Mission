@@ -8,9 +8,9 @@ public class PlayerController : MonoBehaviour
     public float speed;
     public Text countText;
     public Text winText;
+    public int PlayerPointsGoal = 26;
 
     private bool gameOver;
-    private int PlayerPointsGoal = 10;
 
     private Rigidbody rb;
     private PickUpSystem PickUpSystem;
@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
 
     void SetCountText()
     {
-        countText.text = "Count: " + Points.ToString();
+        countText.text = "Current Points: " + Points.ToString();
         if (Points >= PlayerPointsGoal)
         {
             winText.text = "You Win!";
