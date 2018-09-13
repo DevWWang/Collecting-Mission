@@ -18,7 +18,8 @@ public class PickUpSystem : MonoBehaviour {
     //List<GameObject> PickUps;
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
         NumberOfPickUps = 0;
         //pickups = new list<gameobject>();
         TimeAtLastSpawn = Time.time;
@@ -28,7 +29,17 @@ public class PickUpSystem : MonoBehaviour {
         }
     }
 
-    private void SpawnPickUp()
+    // Update is called once per frame
+    void Update()
+    {
+        float time = Time.time;
+        if (time - TimeAtLastSpawn > SpawnPeriod && NumberOfPickUps < MaxNumberOfPickUps)
+        {
+            SpawnPickUp();
+        }
+    }
+
+    void SpawnPickUp()
     {
         Vector3 pos = GetRandomPos();
         GameObject pickUp = GameObject.Instantiate(PickUpPrefab, this.transform);
@@ -38,14 +49,37 @@ public class PickUpSystem : MonoBehaviour {
         //PickUps.Add(pickUp);
     }
 
-    public void DestroyPickUp(PlayerController player, GameObject pickUp) {
+    public void DestroyPickUp(PlayerController player, GameObject pickUp)
+    {
         PickUp PickUp = pickUp.GetComponent<PickUp>();
-        player.givePoints(PickUp.Points);
+        player.GivePoints(PickUp.Points);
+        Debug.Log("add " + PickUp.Points + " points");
         Destroy(pickUp);
         NumberOfPickUps--;
     }
 
-    public Vector3 GetRandomPos() {
+    public void DestroyAllPickUps()
+    {
+        GameObject[] AllPickUps = GameObject.FindGameObjectsWithTag("Pick Up");
+        for (int i = 0; i < AllPickUps.Length; i++)
+        {
+            Destroy(AllPickUps[i]);
+        }
+    }
+
+    public void EndPickUpSystem(PlayerController player)
+    {
+        if (player.GameOver)
+        {
+            NumberOfPickUpsAtStart = 0;
+            MaxNumberOfPickUps = 0;
+            DestroyAllPickUps();
+            Debug.Log("End Pick Up System!");
+        }
+    }
+
+    Vector3 GetRandomPos()
+    {
         GameObject groundObject = GameObject.FindWithTag("Ground");
         GameObject wallsObject = GameObject.FindWithTag("Walls");
         Mesh planeMesh = groundObject.GetComponent<MeshFilter>().mesh;
@@ -54,18 +88,10 @@ public class PickUpSystem : MonoBehaviour {
         float rangeX = groundObject.transform.position.x - groundObject.transform.localScale.x * (bounds.size.x - wallsObject.transform.localScale.x) * 0.5f;
         float rangeZ = groundObject.transform.position.z - groundObject.transform.localScale.z * (bounds.size.z - wallsObject.transform.localScale.z) * 0.5f;
 
-        Debug.Log("Bounds Size: x = " + bounds.size.x + ", z = " + bounds.size.z);
-        Debug.Log("Wall Scale: x = " + wallsObject.transform.localScale.x + ", z = " + wallsObject.transform.localScale.z);
-        Debug.Log("rangeX: " + rangeX + ", rangeZ: " + rangeZ);
+        //Debug.Log("Bounds Size: x = " + bounds.size.x + ", z = " + bounds.size.z);
+        //Debug.Log("Wall Scale: x = " + wallsObject.transform.localScale.x + ", z = " + wallsObject.transform.localScale.z);
+        //Debug.Log("rangeX: " + rangeX + ", rangeZ: " + rangeZ);
 
         return new Vector3(Random.Range(rangeX, -rangeX), 0f, Random.Range(rangeZ, -rangeZ));
     }
-
-    // Update is called once per frame
-    void Update () {
-        float time = Time.time;
-        if (time - TimeAtLastSpawn > SpawnPeriod && NumberOfPickUps < MaxNumberOfPickUps) {
-            SpawnPickUp();
-        }
-	}
 }

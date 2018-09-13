@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class PickUp : MonoBehaviour {
 
-    private int points;
     public float minSize;
     public float maxSize;
 
     public int pointLevels = 5;
+
+    private int points;
 
     public int Points
     {
@@ -23,18 +24,21 @@ public class PickUp : MonoBehaviour {
         }
     }
 
-    void Awake() {
+    void Awake()
+    {
         float size = UnityEngine.Random.Range(minSize, maxSize);
         this.gameObject.transform.localScale = new Vector3(size, size, size);
         Points = Mathf.CeilToInt(pointLevels * (size - minSize) / (maxSize - minSize));
     }
 
     // Use this for initialization
-    void Start () {
+    void Start ()
+    {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
 		
 	}
 }

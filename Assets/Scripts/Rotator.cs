@@ -7,13 +7,14 @@ public class Rotator : MonoBehaviour {
     private Vector3 RotationDirection;
     public float speed;
 
-    private void Start()
+    void Start()
     {
         RotationDirection = Random.onUnitSphere * 90;
     }
 
     // Update is called once per frame
-    void Update () {
+    void Update ()
+    {
         transform.Rotate(RotationDirection * speed * Time.deltaTime);
     }
 }

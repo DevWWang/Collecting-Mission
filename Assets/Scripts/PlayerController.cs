@@ -5,11 +5,12 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    public int PlayerPointsGoal = 20;
-
     public float speed;
     public Text countText;
     public Text winText;
+
+    private bool gameOver;
+    private int PlayerPointsGoal = 10;
 
     private Rigidbody rb;
     private PickUpSystem PickUpSystem;
@@ -17,15 +18,32 @@ public class PlayerController : MonoBehaviour
     private int totalAmountOfPickUp;
     private GameObject pickUpObject;
 
-    void Start() {
+    public bool GameOver
+    {
+        get
+        {
+            return gameOver;
+        }
+
+        set
+        {
+            gameOver = value;
+        }
+    }
+
+    void Start()
+    {
         rb = GetComponent<Rigidbody>();
+
         Points = 0;
         SetCountText();
         winText.text = "";
+        GameOver = false;
         PickUpSystem = GameObject.FindGameObjectWithTag("Pick Ups").GetComponent<PickUpSystem>();
     }
 
-    void FixedUpdate() {
+    void FixedUpdate()
+    {
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
 
@@ -35,27 +53,30 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(movement * speed);
     }
 
-    private void OnTriggerEnter(Collider other) {
+    void OnTriggerEnter(Collider other)
+    {
         //Destroy(other.gameObject);
         if (other.gameObject.CompareTag("Pick Up") && other != null)
         {
             PickUpSystem.DestroyPickUp(this, other.gameObject);
-
             SetCountText();
         }
     }
 
-    public void givePoints(int points)
+    public void GivePoints(int points)
     {
         this.Points += points;
     }
 
-    void SetCountText() {
+    void SetCountText()
+    {
         countText.text = "Count: " + Points.ToString();
-
         if (Points >= PlayerPointsGoal)
         {
             winText.text = "You Win!";
+            gameOver = true;
+            //Debug.Log("GameOver? " + gameOver);
+            PickUpSystem.EndPickUpSystem(this);
         }
     }
 }
