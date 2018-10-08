@@ -10,7 +10,7 @@ public class MarblesGenerator : MonoBehaviour {
     private GameObject marbles;
     private int marblesAmount = 25;
     private int targetAmount;
-    public int targetAmountLimit = 1;
+    public int targetAmountLimit;
     private Color targetColor = Color.red;
 
     private List<int> randomTargetIndices = new List<int>();
@@ -20,20 +20,8 @@ public class MarblesGenerator : MonoBehaviour {
     {
         targetAmount = Mathf.FloorToInt(Random.Range(1, targetAmountLimit));
     }
-    // Use this for initialization
-    void Start ()
-    {
-        //Debug.Log("Total targets = " + targetAmount);
-        GenerateMarbles(targetAmount);
-	}
-	
-	// Update is called once per frame
-	void Update ()
-    {
-		
-	}
 
-    void GenerateMarbles(int n)
+    public void GenerateMarbles()
     {
         marbles = Instantiate(pickupMarblesPrefab, spawnPoint.position, spawnPoint.rotation) as GameObject;
         while (randomTargetIndices.Count != targetAmount)
@@ -56,5 +44,10 @@ public class MarblesGenerator : MonoBehaviour {
             targetMarble.GetComponent<Renderer>().material.color = targetColor;
         }
         //Debug.Log(randomTarget.transform.position);
+    }
+
+    public void DestroyAllMarbles()
+    {
+        Destroy(marbles);
     }
 }
