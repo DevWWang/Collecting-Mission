@@ -28,6 +28,7 @@ public class GroundDetection : MonoBehaviour {
                 if (collectedAmount == marblesGenerator.GetTargetIndices().Count)
                 {
                     allCollected = true;
+                    Debug.Log("All Collected!");
                 }
             }
             else
