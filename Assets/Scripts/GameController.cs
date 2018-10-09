@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour {
     private GameObject marblePlayer;
 
     public MarblesGenerator marblesGenerator;
+    public GroundDetection groundDetection;
 
     public float startDelay = 3f;
     public float endDelay = 3f;
@@ -34,7 +35,7 @@ public class GameController : MonoBehaviour {
         yield return StartCoroutine(Playing());
         yield return StartCoroutine(Ending());
 
-        if (win)
+        if (groundDetection.EndGame())
         {
             SceneManager.LoadScene("miniGame_2");
         }
@@ -56,8 +57,9 @@ public class GameController : MonoBehaviour {
         EnableAllMarbles();
         gameMessage.text = string.Empty;
 
-        while (!win || !gameOver)
+        while (!groundDetection.EndGame())
         {
+            //Debug.Log("Game Continues");
             yield return null;
         }
     }
@@ -66,13 +68,13 @@ public class GameController : MonoBehaviour {
     {
         DisableAllMarbles();
 
-        if (win)
+        if (groundDetection.GetAllTargets())
         {
             gameMessage.text = "Win!";
         }
-        else if (gameOver)
+        else if (groundDetection.EndGame())
         {
-            gameMessage.text = "Game Over";
+            gameMessage.text = "Game Over!";
         }
 
         yield return endWait;
@@ -86,8 +88,8 @@ public class GameController : MonoBehaviour {
 
     void EnableAllMarbles()
     {
-        marblesGenerator.GenerateMarbles();
         marblePlayer.SetActive(true);
+        marblesGenerator.GenerateMarbles();
     }
 
     void DisableAllMarbles()

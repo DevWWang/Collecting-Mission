@@ -605,7 +605,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 50
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 0
     m_MaxSize: 50
     m_Alignment: 4
@@ -843,7 +843,7 @@ MonoBehaviour:
   pickupMarblesPrefab: {fileID: 1039433882160796, guid: ab33e7059adbcdd43b5ffd651e8c41b6,
     type: 2}
   spawnPoint: {fileID: 1143906137}
-  targetAmountLimit: 5
+  targetAmountLimit: 3
   randomTargetIndices: 
   randomTarget: []
 --- !u!4 &1143906137
@@ -980,6 +980,7 @@ MonoBehaviour:
   marblePlayerPrefab: {fileID: 1362082328320212, guid: ec123ae50a8791846a185baf92360134,
     type: 2}
   marblesGenerator: {fileID: 1143906136}
+  groundDetection: {fileID: 1856024390}
   startDelay: 3
   endDelay: 3
 --- !u!4 &1567683189
