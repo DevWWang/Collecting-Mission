@@ -40,35 +40,10 @@ public class PlayerMovement : MonoBehaviour {
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
 
-        bool left = moveHorizontal < 0 ? true : false;
-        bool right = moveHorizontal > 0 ? true : false;
-        bool down = moveVertical < 0 ? true : false;
-        bool up = moveVertical > 0 ? true : false;
-
-        string direction = "";
-
-        if (left && !right && !down && !up)
-        {
-            direction = "Left";
-        }
-        else if (!left && right && !down && !up)
-        {
-            direction = "Right";
-        }
-        else if (!left && !right && down && !up)
-        {
-            direction = "Down";
-        }
-        else if (!left && !right && !down && up)
-        {
-            direction = "Up";
-        }
-        Debug.Log(direction);
-
         // since we do not want ot move up, the y value is zero
         Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
 
-        return movement;
+        return movement * movingSpeed;
     }
 
     void LaunchAction()
@@ -88,17 +63,15 @@ public class PlayerMovement : MonoBehaviour {
         {
             isLaunched = false;
             currentLaunchDistance = minLaunchDistance;
-            Debug.Log("Down");
         }
         else if (held && !isLaunched)
         {
             currentLaunchDistance += chargeRatio * Time.deltaTime;
-            Debug.Log(currentLaunchDistance);
+            //Debug.Log(currentLaunchDistance);
         }
         else if (up && !isLaunched)
         {
             Launch();
-            Debug.Log("up");
         }
         //Debug.Log(currentLaunchDistance);
     }
@@ -106,7 +79,7 @@ public class PlayerMovement : MonoBehaviour {
     void Launch()
     {
         isLaunched = true;
-        Debug.Log("Launch from " + currentPosition.ToString("F4"));
+        //Debug.Log("Launch from " + currentPosition.ToString("F4"));
         rb.velocity = (Vector3.zero - currentPosition).normalized * currentLaunchDistance;
         currentLaunchDistance = minLaunchDistance;
     }

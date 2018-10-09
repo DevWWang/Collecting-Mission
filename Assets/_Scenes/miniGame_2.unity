@@ -499,7 +499,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
@@ -822,7 +822,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1143906137}
   - component: {fileID: 1143906136}
-  - component: {fileID: 1143906138}
   m_Layer: 0
   m_Name: SpawnPoint
   m_TagString: Untagged
@@ -845,6 +844,7 @@ MonoBehaviour:
     type: 2}
   spawnPoint: {fileID: 1143906137}
   targetAmountLimit: 5
+  randomTargetIndices: 
   randomTarget: []
 --- !u!4 &1143906137
 Transform:
@@ -859,17 +859,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1143906138
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1143906135}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6cd7baf701609404f87fd673c2bf6742, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1352255907
 GameObject:
   m_ObjectHideFlags: 0
@@ -990,6 +979,7 @@ MonoBehaviour:
   gameMessage: {fileID: 658542798}
   marblePlayerPrefab: {fileID: 1362082328320212, guid: ec123ae50a8791846a185baf92360134,
     type: 2}
+  marblesGenerator: {fileID: 1143906136}
   startDelay: 3
   endDelay: 3
 --- !u!4 &1567683189
@@ -1017,6 +1007,8 @@ GameObject:
   - component: {fileID: 1856024389}
   - component: {fileID: 1856024388}
   - component: {fileID: 1856024387}
+  - component: {fileID: 1856024391}
+  - component: {fileID: 1856024390}
   m_Layer: 0
   m_Name: Ground
   m_TagString: Ground
@@ -1046,7 +1038,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1856024385}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 10, y: 0.05, z: 10}
@@ -1095,6 +1087,30 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1856024385}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1856024390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1856024385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 030202fc1091d6e49913f609b02a031f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  marblesGenerator: {fileID: 1143906136}
+--- !u!65 &1856024391
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1856024385}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: 2.220446e-16, z: 10}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2082124417
 GameObject:
   m_ObjectHideFlags: 0

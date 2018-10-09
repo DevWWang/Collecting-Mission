@@ -13,7 +13,7 @@ public class MarblesGenerator : MonoBehaviour {
     public int targetAmountLimit;
     private Color targetColor = Color.red;
 
-    private List<int> randomTargetIndices = new List<int>();
+    [HideInInspector]public List<int> randomTargetIndices = new List<int>();
     [HideInInspector]public List<GameObject> randomTarget = new List<GameObject>();
 
     void Awake()
@@ -23,7 +23,7 @@ public class MarblesGenerator : MonoBehaviour {
 
     public void GenerateMarbles()
     {
-        marbles = Instantiate(pickupMarblesPrefab, spawnPoint.position, spawnPoint.rotation) as GameObject;
+        marbles = Instantiate(pickupMarblesPrefab, spawnPoint.position, spawnPoint.rotation);
         while (randomTargetIndices.Count != targetAmount)
         {
             int newIndex = Random.Range(0, marblesAmount - 1);
@@ -35,7 +35,7 @@ public class MarblesGenerator : MonoBehaviour {
             else
             {
                 randomTargetIndices.Add(newIndex);
-                //Debug.Log("index " + newIndex + " added");
+                Debug.Log("index " + newIndex + " added");
             }
             randomTarget.Add(marbles.transform.GetChild(newIndex).gameObject);
         }
@@ -46,7 +46,17 @@ public class MarblesGenerator : MonoBehaviour {
         //Debug.Log(randomTarget.transform.position);
     }
 
-    public void DestroyAllMarbles()
+    public List<GameObject> GetTargetMarbles()
+    {
+        return randomTarget;
+    }
+
+    public List<int> GetTargetIndices()
+    {
+        return randomTargetIndices;
+    }
+
+    public void DisableAllMarbles()
     {
         Destroy(marbles);
     }

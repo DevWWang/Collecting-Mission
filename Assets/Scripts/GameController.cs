@@ -10,7 +10,7 @@ public class GameController : MonoBehaviour {
     public GameObject marblePlayerPrefab;
     private GameObject marblePlayer;
 
-    private MarblesGenerator marblesGenerator;
+    public MarblesGenerator marblesGenerator;
 
     public float startDelay = 3f;
     public float endDelay = 3f;
@@ -80,7 +80,6 @@ public class GameController : MonoBehaviour {
 
     void SetMarblePlayer()
     {
-        Debug.Log("Set player");
         marblePlayer = Instantiate(marblePlayerPrefab);
         marblePlayer.SetActive(false);
     }
@@ -94,6 +93,6 @@ public class GameController : MonoBehaviour {
     void DisableAllMarbles()
     {
         marblePlayer.SetActive(false);
-        marblesGenerator.DestroyAllMarbles();
+        marblesGenerator.DisableAllMarbles();
     }
 }
