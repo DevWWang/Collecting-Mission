@@ -48,7 +48,7 @@ public class GameController : MonoBehaviour {
     IEnumerator Starting()
     {
         SetMarblePlayer();
-        gameMessage.text = "Start!";
+        gameMessage.text = "START";
         yield return startWait;
     }
 
@@ -70,11 +70,11 @@ public class GameController : MonoBehaviour {
 
         if (groundDetection.GetAllTargets())
         {
-            gameMessage.text = "Win!";
+            gameMessage.text = "WIN";
         }
         else if (groundDetection.EndGame())
         {
-            gameMessage.text = "Game Over!";
+            gameMessage.text = "Game Over ";
         }
 
         yield return endWait;
