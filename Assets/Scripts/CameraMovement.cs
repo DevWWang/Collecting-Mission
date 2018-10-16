@@ -2,9 +2,7 @@
 using UnityEngine;
 using System;
 
-public class CameraMovement : MonoBehaviour
-{
-
+public class CameraMovement : MonoBehaviour {
     [Header("Panning")]
     public float panSpeed = 5f;
     public float panBorderThickness = 15f;
